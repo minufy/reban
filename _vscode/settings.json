@@ -11,5 +11,8 @@
     "Lua.diagnostics.globals": [
         "rgb",
         "rgba"
+    ],
+    "Lua.workspace.ignoreDir": [
+        "modules/"
     ]
 }

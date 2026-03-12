@@ -1,25 +1,10 @@
 Game = {}
 
-local Edit = require("scenes.game.edit")
-Game.remove_tile = Edit.remove_tile
-Game.add_tile = Edit.add_tile
-Game.remove_object = Edit.remove_object
-Game.remove_img_object = Edit.remove_img_object
-Game.add_object = Edit.add_object
-Game.add_img_object = Edit.add_img_object
-Game.move_object = Edit.move_object
-Game.move_img_object = Edit.move_img_object
-Game.undo_push = Edit.undo_push
-Game.undo_undo = Edit.undo_undo
-Game.save = Edit.save
+Edit = require("scenes.game.edit")
+Level = require("scenes.game.level")
 
-local Level = require("scenes.game.level")
-Game.load_level = Level.load_level
-Game.reload = Level.reload
-
-function Game:add(object, ...)
-    local o = object:new()
-    o:init(...)
+function Game:add(Object, ...)
+    local o = Object(...)
     local group_name = o.group_name
     if self.objects[group_name] == nil then
         self.objects[group_name] = {}
@@ -30,14 +15,14 @@ end
 
 function Game:init()
     self.objects = {}
-    Edit.init(self)
-    Level.init(self)
+    Edit:init()
+    Level:init()
 end
 
 function Game:update(dt)
-    Edit.update(self, dt)
+    Edit:update(dt)
 
-    if not self.editing then
+    if not Edit.editing then
         for group_name, _ in pairs(self.objects) do
             for i = #self.objects[group_name],  1, -1 do
                 local object = self.objects[group_name][i]
@@ -67,14 +52,14 @@ function Game:draw()
         end
     end
     
-    if self.editing then
-        Edit.draw(self)
+    if Edit.editing then
+        Edit:draw()
     end
     
     Camera:stop()
 
-    if self.editing then
-        Edit.draw_hud(self)
+    if Edit.editing then
+        Edit:draw_hud()
     end
 end
 

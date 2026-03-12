@@ -1,4 +1,4 @@
-local Player = Object:new()
+local Player = Class()
 
 local img = NewImage("player")
 
@@ -10,7 +10,7 @@ function Player:init(x, y)
     self.w = img:getWidth()
     self.h = img:getHeight()
 
-    if not Game.editing then
+    if not Edit.editing then
         Camera:offset(Res.w/2, Res.h/2)
         Camera:set(self.x-self.w/2, self.y-self.h/2)
         Camera:snap_back()

@@ -1,4 +1,5 @@
-Object = require("stuff.object")
+Class = require("modules.hump.class")
+
 Physics = require("objects.physics")
 Particle = require("objects.particle")
 require("stuff.camera")
@@ -20,6 +21,7 @@ function love.load()
     -- NewSound("jump")
 
     Res:init()
+    
     SM:load("game.game")
 end
 

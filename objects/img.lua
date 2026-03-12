@@ -1,4 +1,4 @@
-local Img = Object:new()
+local Img = Class()
 
 function Img:init(x, y, type)
     self.group_name = "img"

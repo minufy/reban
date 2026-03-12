@@ -27,12 +27,13 @@ for i, type in ipairs(IMG_TYPES) do
     IMG_TABLE[type] = NewImage(type)
 end
 
-function Level.init(self)
+function Level:init()
     self.level_index = 1
+    self.level = {}
     self:load_level()
 end
 
-function Level.load_level(self)
+function Level:load_level()
     self.level = require("assets.levels."..self.level_index..".level")
     if self.level.tiles == nil then
         self.level.tiles = {}
@@ -43,18 +44,18 @@ function Level.load_level(self)
     if self.level.img_objects == nil then
         self.level.img_objects = {}
     end
-    self.undo = {}
+    Edit.undo = {}
     if CONSOLE then
-        self:undo_push()
+        Edit:undo_push()
     end
     self:reload()
 end
 
-function Level.reload(self)
-    self.objects = {}
-    self:add(Tiles, self.level.tiles)
+function Level:reload()
+    Game.objects = {}
+    Game:add(Tiles, self.level.tiles)
     for k, o in pairs(self.level.objects) do
-        local object = self:add(object_table[o.type], o.x, o.y)
+        local object = Game:add(object_table[o.type], o.x, o.y)
         object.key = k
         local path = "assets/levels/"..self.level_index.."/"..k..".lua"
         local file = io.open(path, "r")
@@ -64,7 +65,7 @@ function Level.reload(self)
         end
     end
     for k, o in pairs(self.level.img_objects) do
-        local object = self:add(Img, o.x, o.y, o.type)
+        local object = Game:add(Img, o.x, o.y, o.type)
         object.key = k
     end
 end

@@ -4,20 +4,19 @@ local Edit = {}
 
 local Mouse = require("objects.mouse")
 
-function Edit.init(self)
+function Edit:init()
     self.editing = false
-    self.mouse = Mouse:new()
-    self.mouse:init()
+    self.mouse = Mouse()
     self.undo = {}
     self.undo_i = 1
 end
 
-function Edit.update(self, dt)
+function Edit:update(dt)
     if CONSOLE then
         if Input.toggle_editor.pressed then
             self.editing = not self.editing
             if not self.editing then
-                self:reload()
+                Level:reload()
             end
         end
         if Input.ctrl.down then
@@ -36,102 +35,102 @@ function Edit.update(self, dt)
             end
         end
         -- if Input.right.pressed then
-        --     self.level_index = self.level_index+1
-        --     if self.level_index == 0 then
-        --         self.level_index = 1
+        --     Level.level_index = Level.level_index+1
+        --     if Level.level_index == 0 then
+        --         Level.level_index = 1
         --     end
         --     self:load_level()
         -- end
         -- if Input.left.pressed then
-        --     self.level_index = self.level_index-1
+        --     Level.level_index = Level.level_index-1
         --     self:load_level()
         -- end
     end
 end
 
-function Edit.draw(self)
+function Edit:draw()
     self.mouse:draw()
 end
 
-function Edit.draw_hud(self)
+function Edit:draw_hud()
     self.mouse:draw_hud()
 end
 
-function Edit.add_object(self, x, y, type)
+function Edit:add_object(x, y, type)
     local data = {
         x = x,
         y = y,
         type = type,
     }
-    self.level.objects[tostring(data):sub(8)] = data
-    self:reload()
+    Level.level.objects[tostring(data):sub(8)] = data
+    Level:reload()
 end
 
-function Edit.add_img_object(self, x, y, type)
+function Edit:add_img_object(x, y, type)
     local data = {
         x = x,
         y = y,
         type = type,
     }
-    self.level.img_objects[tostring(data):sub(8)] = data
-    self:reload()
+    Level.level.img_objects[tostring(data):sub(8)] = data
+    Level:reload()
 end
 
-function Edit.remove_object(self, key)
-    self.level.objects[key] = nil
-    self:reload()
+function Edit:remove_object(key)
+    Level.level.objects[key] = nil
+    Level:reload()
 end
 
-function Edit.remove_img_object(self, key)
-    self.level.img_objects[key] = nil
-    self:reload()
+function Edit:remove_img_object(key)
+    Level.level.img_objects[key] = nil
+    Level:reload()
 end
 
-function Edit.remove_tile(self, x, y)
-    self.level.tiles[x..","..y] = nil
-    self:reload()
+function Edit:remove_tile(x, y)
+    Level.level.tiles[x..","..y] = nil
+    Level:reload()
 end
 
-function Edit.add_tile(self, x, y, type)
-    self.level.tiles[x..","..y] = {
+function Edit:add_tile(x, y, type)
+    Level.level.tiles[x..","..y] = {
         x = x,
         y = y,
         type = type
     }
-    self:reload()
+    Level:reload()
 end
 
-function Edit.move_object(self, x, y, key)
-    self.level.objects[key].x = x
-    self.level.objects[key].y = y
-    self:reload()
+function Edit:move_object(x, y, key)
+    Level.level.objects[key].x = x
+    Level.level.objects[key].y = y
+    Level:reload()
 end
 
-function Edit.move_img_object(self, x, y, key)
-    self.level.img_objects[key].x = x
-    self.level.img_objects[key].y = y
-    self:reload()
+function Edit:move_img_object(x, y, key)
+    Level.level.img_objects[key].x = x
+    Level.level.img_objects[key].y = y
+    Level:reload()
 end
 
-function Edit.undo_push(self)
+function Edit:undo_push()
     for i = #self.undo, self.undo_i+1, -1 do
         table.remove(self.undo, i)
     end
-    table.insert(self.undo, lume.serialize(self.level))
+    table.insert(self.undo, lume.serialize(Level.level))
     self.undo_i = #self.undo
 end
 
-function Edit.undo_undo(self)
+function Edit:undo_undo()
     if self.undo_i-1 >= 1 then
         self.undo_i = self.undo_i-1
-        self.level = lume.deserialize(self.undo[self.undo_i])
-        self:reload()
+        Level.level = lume.deserialize(self.undo[self.undo_i])
+        Level:reload()
     end
 end
 
-function Edit.save(self)
-    for k, o in pairs(self.level.objects) do
-        local path = "assets/levels/"..self.level_index.."/"..k..".lua"
+function Edit:save()
+    for k, o in pairs(Level.level.objects) do
+        local path = "assets/levels/"..Level.level_index.."/"..k..".lua"
         local file = io.open(path, "r")
         if file then
             file = io.open(path, "w")
@@ -140,8 +139,8 @@ function Edit.save(self)
             end
         end
     end
-    local data = "return "..lume.serialize(self.level)
-    local path = "assets/levels/"..self.level_index.."/level.lua"
+    local data = "return "..lume.serialize(Level.level)
+    local path = "assets/levels/"..Level.level_index.."/level.lua"
     local file, err = io.open(path, "w")
     if file then
         file:write(data)

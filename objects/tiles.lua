@@ -1,4 +1,4 @@
-local Tiles = Object:new()
+local Tiles = Class()
 
 function Tiles:init(tiles)
     self.group_name = "tiles"

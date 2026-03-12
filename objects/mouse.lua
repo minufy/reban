@@ -1,6 +1,6 @@
 local Selection = require("objects.mouse.selection")
 
-local Mouse = Object:new()
+local Mouse = Class()
 
 function Mouse:init()
     self.group_name = "mouse"
@@ -15,8 +15,7 @@ function Mouse:init()
 
     self.dx = 0
     self.dy = 0
-    self.selection = Selection:new()
-    self.selection:init(self)
+    self.selection = Selection(self)
     
     self.tile_mode = true
     self.current_name = "tile"
@@ -24,11 +23,11 @@ function Mouse:init()
 end
 
 function Mouse:update(dt)
-    self.x = Res:getX()+Camera.x
-    self.y = Res:getY()+Camera.y
+    self.x = Res:get_x()+Camera.x
+    self.y = Res:get_y()+Camera.y
 
-    self.dx = self.dx-Res:getX()
-    self.dy = self.dy-Res:getY()
+    self.dx = self.dx-Res:get_x()
+    self.dy = self.dy-Res:get_y()
     
     self.tile_x = math.floor(self.x/TILE_SIZE)
     self.tile_y = math.floor(self.y/TILE_SIZE)
@@ -55,7 +54,7 @@ function Mouse:update(dt)
     end
     
     if Input.mb[1].released or Input.mb[2].released or Input.delete.pressed then
-        Game:undo_push()
+        Edit:undo_push()
     end
     
     if self.tile_mode then
@@ -63,29 +62,29 @@ function Mouse:update(dt)
             self.selection:update_tile()
         else
             if Input.mb[1].down then
-                Game:add_tile(self.tile_x, self.tile_y, self.current_name)
+                Edit:add_tile(self.tile_x, self.tile_y, self.current_name)
             elseif Input.mb[2].down then
-                Game:remove_tile(self.tile_x, self.tile_y)
+                Edit:remove_tile(self.tile_x, self.tile_y)
             end
         end
     else
         if Input.shift.down and Input.mb[1].pressed then
             if IMG_TABLE[self.current_name] == nil then
-                Game:add_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
+                Edit:add_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
             else
-                Game:add_img_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
+                Edit:add_img_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
             end
-            Game:undo_push()
+            Edit:undo_push()
         end
         self.selection:update()
     end
 
-    self.dx = Res:getX()
-    self.dy = Res:getY()
+    self.dx = Res:get_x()
+    self.dy = Res:get_y()
 end
 
 function Mouse:draw()
-    local x, y = Res:getX()+Camera.x, Res:getY()+Camera.y
+    local x, y = Res:get_x()+Camera.x, Res:get_y()+Camera.y
     love.graphics.circle("fill", x, y, 2)
     love.graphics.setFont(Font)
     love.graphics.print(self.current_name, x+10, y+10)

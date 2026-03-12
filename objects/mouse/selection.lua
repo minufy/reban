@@ -1,4 +1,4 @@
-local Selection = Object:new()
+local Selection = Class()
 
 function Selection:init(mouse)
     self.mouse = mouse
@@ -129,16 +129,16 @@ function Selection:update_selected_objects()
             object.x = x
             object.y = y
             if object.group_name == "img" then
-                Game:move_img_object(x, y, object.key)
+                Edit:move_img_object(x, y, object.key)
             else
-                Game:move_object(x, y, object.key)
+                Edit:move_object(x, y, object.key)
             end
         end
         if Input.delete.pressed then
             if object.group_name == "img" then
-                Game:remove_img_object(object.key)
+                Edit:remove_img_object(object.key)
             else
-                Game:remove_object(object.key)
+                Edit:remove_object(object.key)
             end
         end
     end
@@ -149,7 +149,7 @@ end
 
 function Selection:add_script()
     for i, o in ipairs(self.selected_objects) do
-        local path = "assets/levels/"..Game.level_index.."/"..o.key..".lua"
+        local path = "assets/levels/"..Level.level_index.."/"..o.key..".lua"
         local file = io.open(path, "w")
         if file then
             file:close()
@@ -204,9 +204,9 @@ function Selection:fill_tiles()
     for x = sx, sx+w do
         for y = sy, sy+h do
             if self.tile_mouse_i == 1 then
-                Game:add_tile(x, y, self.mouse.current_name)
+                Edit:add_tile(x, y, self.mouse.current_name)
             else
-                Game:remove_tile(x, y)
+                Edit:remove_tile(x, y)
             end
         end
     end
