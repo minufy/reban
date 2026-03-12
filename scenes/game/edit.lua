@@ -129,16 +129,6 @@ function Edit:undo_undo()
 end
 
 function Edit:save()
-    for k, o in pairs(Level.level.objects) do
-        local path = "assets/levels/"..Level.level_index.."/"..k..".lua"
-        local file = io.open(path, "r")
-        if file then
-            file = io.open(path, "w")
-            if file then
-                file:close()
-            end
-        end
-    end
     local data = "return "..lume.serialize(Level.level)
     local path = "assets/levels/"..Level.level_index.."/level.lua"
     local file, err = io.open(path, "w")
