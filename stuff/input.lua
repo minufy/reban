@@ -60,6 +60,7 @@ Input.add = new({"a"})
 Input.delete = new({"delete", "x"})
 Input.deselect = new({"escape"})
 Input.undo = new({"z"})
+Input.add_script = new({"backspace"})
 
 Input.right = new({"right", "d"})
 Input.left = new({"left", "a"})
