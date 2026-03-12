@@ -26,8 +26,8 @@ function Particle:update(dt)
     self.mx = self.mx+(0-self.mx)*0.1*dt
     self.my = self.my+(0-self.my)*0.1*dt
     
-    self.size = self.size+(0-self.size)*0.1*dt
-    if self.size < 0.1 then
+    self.size = self.size+(0-self.size)*0.07*dt
+    if self.size < 0.5 then
         self.remove = true
     end
 end
