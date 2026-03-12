@@ -70,7 +70,6 @@ function Mouse:update(dt)
             else
                 Edit:add_img_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
             end
-            Edit:undo_push()
         end
         self.selection:update()
     end
