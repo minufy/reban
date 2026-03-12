@@ -53,10 +53,6 @@ function Mouse:update(dt)
         Camera:snap_back()
     end
     
-    if Input.mb[1].released or Input.mb[2].released or Input.delete.pressed then
-        Edit:undo_push()
-    end
-    
     if self.tile_mode then
         if Input.ctrl.down then
             self.selection:update_tile()
@@ -81,6 +77,10 @@ function Mouse:update(dt)
 
     self.dx = Res:get_x()
     self.dy = Res:get_y()
+    
+    if Input.mb[1].released or Input.mb[2].released or Input.delete.pressed then
+        Edit:undo_push()
+    end
 end
 
 function Mouse:draw()
