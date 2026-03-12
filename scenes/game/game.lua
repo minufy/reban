@@ -24,7 +24,7 @@ function Game:update(dt)
 
     if not Edit.editing then
         for group_name, _ in pairs(self.objects) do
-            for i = #self.objects[group_name],  1, -1 do
+            for i = #self.objects[group_name], 1, -1 do
                 local object = self.objects[group_name][i]
                 if object.update then
                     object:update(dt)
