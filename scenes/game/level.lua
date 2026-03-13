@@ -58,10 +58,8 @@ function Level:reload()
         local object = Game:add(object_table[o.type], o.x, o.y)
         object.key = k
         local path = "assets/levels/"..self.level_index.."/"..k..".lua"
-        local file = io.open(path, "r")
-        if file then
+        if love.filesystem.getInfo(path) then
             object.data = require("assets.levels."..self.level_index.."."..k)
-            file:close()
         end
     end
     for k, o in pairs(self.level.img_objects) do
