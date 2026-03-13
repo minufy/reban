@@ -77,10 +77,11 @@ function NewImage(name)
     end 
 end
 
-function NewSound(name, volume)
+Audio = {}
+function NewAudio(name, volume)
     volume = volume or 0.5
     local sound = {
-        source = love.audio.newSource("assets/sounds/"..name..".ogg", "static"),
+        source = love.audio.newSource("assets/audio/"..name..".ogg", "static"),
         volume = volume
     }
     function sound:play(v)
@@ -89,7 +90,7 @@ function NewSound(name, volume)
         self.source:stop()
         self.source:play()
     end
-    Sounds[name] = sound
+    Audio[name] = sound
     return sound
 end
 

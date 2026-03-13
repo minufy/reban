@@ -17,8 +17,7 @@ function love.load()
     Font = love.graphics.newFont("assets/fonts/Galmuri9.ttf", 10)
     TILE_SIZE = 16
 
-    Sounds = {}
-    -- NewSound("jump")
+    NewAudio("jump")
 
     Res:init()
     
