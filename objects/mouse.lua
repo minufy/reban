@@ -29,8 +29,8 @@ function Mouse:update(dt)
     self.dx = self.dx-Res:get_x()
     self.dy = self.dy-Res:get_y()
     
-    self.tile_x = Round(self.x, TILE_SIZE)
-    self.tile_y = Round(self.y, TILE_SIZE)
+    self.tile_x = Round(self.x, TILE_SIZE, 0)
+    self.tile_y = Round(self.y, TILE_SIZE, 0)
 
     if Input.swap_mode.pressed then
         self.tile_mode = not self.tile_mode
