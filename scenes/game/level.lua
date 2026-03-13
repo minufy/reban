@@ -34,21 +34,26 @@ function Level:init()
 end
 
 function Level:load_level()
-    self.level = require("assets.levels."..self.level_index..".level")
-    if self.level.tiles == nil then
-        self.level.tiles = {}
+    local path = "assets/levels/"..self.level_index.."/level.lua"
+    if love.filesystem.getInfo(path) then
+        self.level = require("assets.levels."..self.level_index..".level")
+        if self.level.tiles == nil then
+            self.level.tiles = {}
+        end
+        if self.level.objects == nil then
+            self.level.objects = {}
+        end
+        if self.level.img_objects == nil then
+            self.level.img_objects = {}
+        end
+        Edit.undo = {}
+        if CONSOLE then
+            Edit:undo_push()
+        end
+        self:reload()
+    else
+        Log("not found: "..path)
     end
-    if self.level.objects == nil then
-        self.level.objects = {}
-    end
-    if self.level.img_objects == nil then
-        self.level.img_objects = {}
-    end
-    Edit.undo = {}
-    if CONSOLE then
-        Edit:undo_push()
-    end
-    self:reload()
 end
 
 function Level:reload()
@@ -60,6 +65,8 @@ function Level:reload()
         local path = "assets/levels/"..self.level_index.."/"..k..".lua"
         if love.filesystem.getInfo(path) then
             object.data = require("assets.levels."..self.level_index.."."..k)
+        else
+            Log("not found: "..path)
         end
     end
     for k, o in pairs(self.level.img_objects) do

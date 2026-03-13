@@ -72,7 +72,7 @@ function NewImage(name)
     if love.filesystem.getInfo(path) then
         return love.graphics.newImage(path)
     else
-        Log("failed to load "..path)
+        Log("not found: "..path)
         return love.graphics.newImage("assets/imgs/error.png")
     end 
 end
