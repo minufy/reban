@@ -1,5 +1,24 @@
 local Selection = Class()
 
+local function calc_rect(sx, ex, sy, ey)
+    local x, y, w, h
+    if sx < ex then
+        w = ex-sx
+        x = sx
+    else
+        w = sx-ex
+        x = sx-w
+    end
+    if sy < ey then
+        h = ey-sy
+        y = sy
+    else
+        h = sy-ey
+        y = sy-h
+    end
+    return x, y, w, h
+end
+
 function Selection:init(mouse)
     self.mouse = mouse
 
@@ -59,20 +78,7 @@ function Selection:update_selection()
         self.end_y = self.mouse.y
     end
 
-    if self.start_x < self.end_x then
-        self.w = self.end_x-self.start_x
-        self.x = self.start_x
-    else
-        self.w = self.start_x-self.end_x
-        self.x = self.start_x-self.w
-    end
-    if self.start_y < self.end_y then
-        self.h = self.end_y-self.start_y
-        self.y = self.start_y
-    else
-        self.h = self.start_y-self.end_y
-        self.y = self.start_y-self.h
-    end
+    self.x, self.y, self.w, self.h = calc_rect(self.start_x, self.end_x, self.start_y, self.end_y)
     
     if Input.mb[1].released then
         local col = Physics.col(self, get_group_names())
@@ -225,20 +231,7 @@ function Selection:update_tile()
             self.end_y = RoundS(self.mouse.y, TILE_SIZE, 0)
         end
     
-        if self.start_x < self.end_x then
-            self.w = self.end_x-self.start_x
-            self.x = self.start_x
-        else
-            self.w = self.start_x-self.end_x
-            self.x = self.start_x-self.w
-        end
-        if self.start_y < self.end_y then
-            self.h = self.end_y-self.start_y
-            self.y = self.start_y
-        else
-            self.h = self.start_y-self.end_y
-            self.y = self.start_y-self.h
-        end
+        self.x, self.y, self.w, self.h = calc_rect(self.start_x, self.end_x, self.start_y, self.end_y)
         
         if Input.mb[i].released then
             self:fill_tiles()

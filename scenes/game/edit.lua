@@ -34,17 +34,17 @@ function Edit:update(dt)
                 self:undo_undo()
             end
         end
-        -- if Input.right.pressed then
-        --     Level.level_index = Level.level_index+1
-        --     if Level.level_index == 0 then
-        --         Level.level_index = 1
-        --     end
-        --     self:load_level()
-        -- end
-        -- if Input.left.pressed then
-        --     Level.level_index = Level.level_index-1
-        --     self:load_level()
-        -- end
+        if Input.next_level.pressed or Input.prev_level.pressed then
+            local d_index = -1
+            if Input.next_level.pressed then
+                d_index = 1
+            end
+            local prev_level_index = Level.level_index
+            Level.level_index = Level.level_index+d_index
+            if Level:load_level() == false then
+                Level.level_index = prev_level_index
+            end
+        end
     end
 end
 

@@ -62,5 +62,12 @@ Input.deselect = new({"escape"})
 Input.undo = new({"z"})
 Input.add_script = new({"backspace"})
 
+Input.next_level = new({"pagedown"})
+Input.prev_level = new({"pageup"})
+
 Input.right = new({"right", "d"})
 Input.left = new({"left", "a"})
+
+-- Input.up = new({"up", "w"})
+-- Input.down = new({"down", "d"})
+-- Input.jump = new({"space", "up", "w", "lshift"})

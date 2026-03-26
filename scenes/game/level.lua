@@ -51,8 +51,10 @@ function Level:load_level()
             Edit:undo_push()
         end
         self:reload()
+        return true
     else
         Log("not found: "..path)
+        return false
     end
 end
 

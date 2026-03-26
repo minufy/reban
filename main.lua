@@ -7,6 +7,8 @@ require("stuff.input")
 require("stuff.res")
 require("stuff.sm")
 require("stuff.utils")
+require("stuff.log")
+require("stuff.audio")
 
 function love.load()
     LogFont = love.graphics.newFont(20)
@@ -22,9 +24,15 @@ function love.load()
     Res:init()
     
     SM:load("game.game")
+    
+    UpdateTargetFPS()
 end
 
 function love.update(dt)
+    local target_dt = 1/TargetFPS/2
+    if dt < target_dt then
+        love.timer.sleep(target_dt-dt)
+    end
     dt = math.min(dt*60, 1.5)
     UpdateInputs()
     Camera:update(dt)
@@ -38,4 +46,7 @@ function love.draw()
     SM:draw()
     Res:after()
     DrawLog()
+    if CONSOLE then
+        love.graphics.print(tostring(love.timer.getFPS()))
+    end
 end
