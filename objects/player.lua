@@ -12,13 +12,13 @@ function Player:init(x, y)
 
     if not Edit.editing then
         Camera:offset(Res.w/2, Res.h/2)
-        Camera:set(self.x-self.w/2, self.y-self.h/2)
+        Camera:set(self.x+self.w/2, self.y+self.h/2)
         Camera:snap_back()
     end
 end
 
 function Player:update(dt)
-    Camera:set(self.x-self.w/2, self.y-self.h/2)
+    Camera:set(self.x+self.w/2, self.y+self.h/2)
     local ix = 0
     if Input.right.down then
         ix = ix+1
