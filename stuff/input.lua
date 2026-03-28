@@ -69,5 +69,5 @@ Input.right = new({"right", "d"})
 Input.left = new({"left", "a"})
 
 -- Input.up = new({"up", "w"})
--- Input.down = new({"down", "d"})
+-- Input.down = new({"down", "s"})
 -- Input.jump = new({"space", "up", "w", "lshift"})
