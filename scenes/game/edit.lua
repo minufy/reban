@@ -17,6 +17,7 @@ function Edit:update(dt)
             self.editing = not self.editing
             if not self.editing then
                 Level:reload()
+                Camera:set_zoom(1)
             end
         end
         if Input.ctrl.down then

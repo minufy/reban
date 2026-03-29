@@ -61,6 +61,7 @@ Input.delete = new({"delete", "x"})
 Input.deselect = new({"escape"})
 Input.undo = new({"z"})
 Input.add_script = new({"backspace"})
+Input.reset_zoom = new({"rshift"})
 
 Input.next_level = new({"pagedown"})
 Input.prev_level = new({"pageup"})

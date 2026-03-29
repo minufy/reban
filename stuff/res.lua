@@ -40,18 +40,17 @@ function Res:after()
     for _, o in ipairs(self.q) do
         love.graphics.push()
         love.graphics.translate(-o.x*SCALE, -o.y*SCALE)
-        o.callback()
         love.graphics.pop()
     end
     love.graphics.pop()
 end
 
 function Res:get_x()
-    return (love.mouse.getX()-self.shift.x)/self.zoom
+    return (love.mouse.getX()-self.shift.x)/self.zoom/Camera.zoom
 end
 
 function Res:get_y()
-    return (love.mouse.getY()-self.shift.y)/self.zoom
+    return (love.mouse.getY()-self.shift.y)/self.zoom/Camera.zoom
 end
 
 function Res:resize(w, h)

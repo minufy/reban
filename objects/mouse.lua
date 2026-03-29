@@ -39,13 +39,25 @@ function Mouse:update(dt)
         self:set()
     end
     
-    if Input.wheel.up then
-        self.current_i = self.current_i+1
-        self:set()
+    if Input.ctrl.down then
+        if Input.wheel.up then
+            Camera:scale_zoom(1.5)
+        end
+        if Input.wheel.down then
+            Camera:scale_zoom(1/1.5)
+        end
+    else
+        if Input.wheel.up then
+            self.current_i = self.current_i+1
+            self:set()
+        end
+        if Input.wheel.down then
+            self.current_i = self.current_i-1
+            self:set()
+        end
     end
-    if Input.wheel.down then
-        self.current_i = self.current_i-1
-        self:set()
+    if Input.reset_zoom.pressed then
+        Camera:set_zoom(1)
     end
 
     if Input.mb[3].down then
