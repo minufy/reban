@@ -1,8 +1,7 @@
 Class = require("modules.hump.class")
-
-Physics = require("objects.physics")
 Particle = require("objects.particle")
 
+require("stuff.physics")
 require("stuff.camera")
 require("stuff.input")
 require("stuff.res")

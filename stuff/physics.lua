@@ -1,4 +1,4 @@
-local Physics = {}
+Physics = {}
 
 function Physics.dist(self, group_names, r)
     local found_all = {}
