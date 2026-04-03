@@ -1,33 +1,24 @@
-local Level = {}
+Level = {}
 
 local Tiles = require("objects.tiles")
 local Img = require("objects.img")
 
-TILE_TYPES = {
-    "tile"
-}
-TILE_IMGS = {}
-for i, type in ipairs(TILE_TYPES) do
-    TILE_IMGS[type] = NewImage(type)
-end
-
-OBJECT_TYPES = {
-    "player"
-}
-local object_table = {}
-for i, type in ipairs(OBJECT_TYPES) do
-    object_table[type] = require("objects."..type)
-end
-
-IMG_TYPES = {
-    "test"
-}
-IMG_TABLE = {}
-for i, type in ipairs(IMG_TYPES) do
-    IMG_TABLE[type] = NewImage(type)
-end
-
 function Level:init()
+    TILE_IMGS = {}
+    for i, type in ipairs(TILE_TYPES) do
+        TILE_IMGS[type] = NewImage(type)
+    end
+
+    OBJECT_TABLE = {}
+    for i, type in ipairs(OBJECT_TYPES) do
+        OBJECT_TABLE[type] = require("objects."..type)
+    end
+
+    IMG_TABLE = {}
+    for i, type in ipairs(IMG_TYPES) do
+        IMG_TABLE[type] = NewImage(type)
+    end
+
     self.level_index = 1
     self.level = {}
     self:load_level()
@@ -62,7 +53,7 @@ function Level:reload()
     Game.objects = {}
     Game:add(Tiles, self.level.tiles)
     for k, o in pairs(self.level.objects) do
-        local object = Game:add(object_table[o.type], o.x, o.y)
+        local object = Game:add(OBJECT_TABLE[o.type], o.x, o.y)
         object.key = k
         local path = "assets/levels/"..self.level_index.."/"..k..".lua"
         if love.filesystem.getInfo(path) then

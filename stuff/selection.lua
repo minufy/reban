@@ -1,4 +1,4 @@
-local Selection = Class()
+Selection = {}
 
 local function calc_rect(sx, ex, sy, ey)
     local x, y, w, h
@@ -19,9 +19,7 @@ local function calc_rect(sx, ex, sy, ey)
     return x, y, w, h
 end
 
-function Selection:init(mouse)
-    self.mouse = mouse
-
+function Selection:init()
     self.x = 0
     self.y = 0
     self.w = 0
@@ -46,8 +44,8 @@ local function get_group_names()
 end
 
 function Selection:draw_selection()
-    local active = not self.mouse.tile_mode and Input.mb[1].down
-    local active_tile = self.mouse.tile_mode and Input.ctrl.down and (Input.mb[1].down or Input.mb[2].down)
+    local active = not Mouse.tile_mode and Input.mb[1].down
+    local active_tile = Mouse.tile_mode and Input.ctrl.down and (Input.mb[1].down or Input.mb[2].down)
     if active or active_tile then
         local color = 1
         if active_tile and self.tile_mouse_i == 2 then
@@ -66,7 +64,7 @@ end
 
 function Selection:update_selection()
     if Input.mb[1].pressed then
-        local col = Physics.col(self.mouse, get_group_names())
+        local col = Physics.col(Mouse, get_group_names())
         if #col > 0 then
             self.selected_objects = {col[1]}
             return
@@ -74,8 +72,8 @@ function Selection:update_selection()
     end
 
     if Input.mb[1].down then
-        self.end_x = self.mouse.x
-        self.end_y = self.mouse.y
+        self.end_x = Mouse.x
+        self.end_y = Mouse.y
     end
 
     self.x, self.y, self.w, self.h = calc_rect(self.start_x, self.end_x, self.start_y, self.end_y)
@@ -96,7 +94,7 @@ end
 
 function Selection:update_before_selected_objects()
     if Input.mb[1].pressed then
-        local col = Physics.col(self.mouse, get_group_names())
+        local col = Physics.col(Mouse, get_group_names())
         if #col <= 0 then
             self.selected_objects = {}
             return
@@ -126,8 +124,8 @@ end
 function Selection:update_selected_objects()
     for i, object in ipairs(self.selected_objects) do
         if Input.mb[1].down then
-            object.x = object.x-self.mouse.dx
-            object.y = object.y-self.mouse.dy
+            object.x = object.x-Mouse.dx
+            object.y = object.y-Mouse.dy
         elseif Input.mb[1].up then
             local grid = TILE_SIZE/2
             local x = RoundS(object.x, grid)
@@ -178,8 +176,8 @@ end
 
 function Selection:update()
     if Input.mb[1].pressed then
-        self.start_x = self.mouse.x
-        self.start_y = self.mouse.y
+        self.start_x = Mouse.x
+        self.start_y = Mouse.y
     end
     if #self.selected_objects > 0 then
         self:update_before_selected_objects()
@@ -210,7 +208,7 @@ function Selection:fill_tiles()
     for x = sx, sx+w do
         for y = sy, sy+h do
             if self.tile_mouse_i == 1 then
-                Edit:add_tile(x, y, self.mouse.current_name)
+                Edit:add_tile(x, y, Mouse.current_name)
             else
                 Edit:remove_tile(x, y)
             end
@@ -222,13 +220,13 @@ function Selection:update_tile()
     for i=1, 2 do
         if Input.mb[i].pressed then
             self.tile_mouse_i = i
-            self.start_x = RoundS(self.mouse.x, TILE_SIZE, 0)
-            self.start_y = RoundS(self.mouse.y, TILE_SIZE, 0)
+            self.start_x = RoundS(Mouse.x, TILE_SIZE, 0)
+            self.start_y = RoundS(Mouse.y, TILE_SIZE, 0)
         end
     
         if Input.mb[i].down then
-            self.end_x = RoundS(self.mouse.x, TILE_SIZE, 0)
-            self.end_y = RoundS(self.mouse.y, TILE_SIZE, 0)
+            self.end_x = RoundS(Mouse.x, TILE_SIZE, 0)
+            self.end_y = RoundS(Mouse.y, TILE_SIZE, 0)
         end
     
         self.x, self.y, self.w, self.h = calc_rect(self.start_x, self.end_x, self.start_y, self.end_y)

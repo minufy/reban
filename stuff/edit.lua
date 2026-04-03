@@ -1,15 +1,14 @@
 local lume = require("modules.lume")
 
-local Edit = {}
-
-local Mouse = require("objects.mouse")
+Edit = {}
 
 function Edit:init()
     self.editing = false
-    self.mouse = Mouse()
     self.undo = {}
     self.undo_i = 1
     self.remove_scripts = {}
+    Mouse:init()
+    Selection:init()
 end
 
 function Edit:update(dt)
@@ -29,10 +28,10 @@ function Edit:update(dt)
     end
     
     if self.editing then
-        self.mouse:update(dt)
+        Mouse:update(dt)
         if Input.ctrl.down then
             if Input.undo.pressed then
-                self.mouse:deselect_all()
+                Mouse:deselect_all()
                 self:undo_undo()
             end
         end
@@ -51,11 +50,11 @@ function Edit:update(dt)
 end
 
 function Edit:draw()
-    self.mouse:draw()
+    Mouse:draw()
 end
 
 function Edit:draw_hud()
-    self.mouse:draw_hud()
+    Mouse:draw_hud()
 end
 
 function Edit:add_object(x, y, type)

@@ -1,6 +1,4 @@
-local Selection = require("objects.mouse.selection")
-
-local Mouse = Class()
+Mouse = {}
 
 function Mouse:init()
     self.group_name = "mouse"
@@ -15,7 +13,6 @@ function Mouse:init()
 
     self.dx = 0
     self.dy = 0
-    self.selection = Selection(self)
     
     self.tile_mode = true
     self.current_name = "tile"
@@ -34,7 +31,7 @@ function Mouse:update(dt)
 
     if Input.swap_mode.pressed then
         self.tile_mode = not self.tile_mode
-        self.selection.selected_objects = {}
+        Selection.selected_objects = {}
         self.current_i = 1
         self:set()
     end
@@ -67,7 +64,7 @@ function Mouse:update(dt)
     
     if self.tile_mode then
         if Input.ctrl.down then
-            self.selection:update_tile()
+            Selection:update_tile()
         else
             if Input.mb[1].down then
                 Edit:add_tile(self.tile_x, self.tile_y, self.current_name)
@@ -83,7 +80,7 @@ function Mouse:update(dt)
                 Edit:add_img_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
             end
         end
-        self.selection:update()
+        Selection:update()
     end
 
     self.dx = Res:get_x()
@@ -100,7 +97,7 @@ function Mouse:draw()
     love.graphics.setFont(Font)
     love.graphics.print(self.current_name, x+10, y+10)
     
-    self.selection:draw()
+    Selection:draw()
     
     ResetColor()
 end
@@ -115,7 +112,7 @@ function Mouse:draw_hud()
     love.graphics.print(self.tile_x..","..self.tile_y, 0, y)
     
     y = y+Font:getHeight()
-    local keys_str = self.selection:get_key_str()
+    local keys_str = Selection:get_key_str()
     love.graphics.print(keys_str, 0, y)
 end
 
@@ -153,7 +150,7 @@ end
 
 -- 외부에서 접근
 function Mouse:deselect_all()
-    self.selection.selected_objects = {}
+    Selection.selected_objects = {}
 end
 
 return Mouse

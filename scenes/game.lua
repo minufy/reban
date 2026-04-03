@@ -1,8 +1,5 @@
 Game = {}
 
-Edit = require("scenes.game.edit")
-Level = require("scenes.game.level")
-
 function Game:add(Object, ...)
     local o = Object(...)
     local group_name = o.group_name

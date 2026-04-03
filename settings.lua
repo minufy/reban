@@ -24,3 +24,13 @@ Camera.x_damp = 0.2
 Camera.y_damp = 0.2
 
 Camera.shake_damp = 0.2
+
+TILE_TYPES = {
+    "tile"
+}
+OBJECT_TYPES = {
+    "player"
+}
+IMG_TYPES = {
+    "test"
+}

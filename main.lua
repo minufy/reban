@@ -2,6 +2,7 @@ Class = require("modules.hump.class")
 
 Physics = require("objects.physics")
 Particle = require("objects.particle")
+
 require("stuff.camera")
 require("stuff.input")
 require("stuff.res")
@@ -9,6 +10,10 @@ require("stuff.sm")
 require("stuff.utils")
 require("stuff.log")
 require("stuff.audio")
+require("stuff.edit")
+require("stuff.level")
+require("stuff.mouse")
+require("stuff.selection")
 
 require("settings")
 
@@ -16,7 +21,6 @@ function love.load()
     LogFont = love.graphics.newFont(20)
     
     love.graphics.setDefaultFilter("nearest", "nearest")
-    love.graphics.setLineStyle("rough")
 
     Font = love.graphics.newFont("assets/fonts/Galmuri9.ttf", 10)
     TILE_SIZE = 16
@@ -25,7 +29,7 @@ function love.load()
 
     Res:init()
     
-    SM:load("game.game")
+    SM:load("game")
     
     UpdateTargetFPS()
 end
