@@ -65,5 +65,3 @@ function Level:reload()
         object.key = k
     end
 end
-
-return Level

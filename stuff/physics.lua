@@ -74,5 +74,3 @@ function Physics.move_and_col(self, x, y, layers)
     end
     return found_all
 end
-
-return Physics

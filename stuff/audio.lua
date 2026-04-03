@@ -1,4 +1,5 @@
 Audio = {}
+
 function NewAudio(name, volume)
     volume = volume or 0.5
     local audio = {

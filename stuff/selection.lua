@@ -238,5 +238,3 @@ function Selection:update_tile()
         end
     end
 end
-
-return Selection

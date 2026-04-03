@@ -152,5 +152,3 @@ end
 function Mouse:deselect_all()
     Selection.selected_objects = {}
 end
-
-return Mouse

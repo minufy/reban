@@ -160,5 +160,3 @@ function Edit:save()
         end
     end
 end
-
-return Edit
