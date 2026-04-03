@@ -77,11 +77,7 @@ function Mouse:update(dt)
         end
     else
         if Input.shift.down and Input.mb[1].pressed then
-            if IMG_TABLE[self.current_name] == nil then
-                Edit:add_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
-            else
-                Edit:add_img_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
-            end
+            Edit:add_object(self.tile_x*TILE_SIZE, self.tile_y*TILE_SIZE, self.current_name)
         end
         self.selection:update()
     end
@@ -128,11 +124,7 @@ function Mouse:find_name()
     if self.tile_mode then
         self.current_name = TILE_TYPES[self.current_i]
     else
-        if self.current_i > #OBJECT_TYPES then
-            self.current_name = IMG_TYPES[self.current_i-#OBJECT_TYPES]
-        else
-            self.current_name = OBJECT_TYPES[self.current_i]
-        end
+        self.current_name = OBJECT_TYPES[self.current_i]
     end
 end
 
@@ -145,8 +137,8 @@ function Mouse:bound_i()
             self.current_i = #TILE_TYPES
         end
     else
-        if self.current_i > #OBJECT_TYPES+#IMG_TYPES then
-            self.current_i = #OBJECT_TYPES+#IMG_TYPES
+        if self.current_i > #OBJECT_TYPES then
+            self.current_i = #OBJECT_TYPES
         end
     end
 end

@@ -1,6 +1,6 @@
 Input = {}
 
-local function new(keys)
+function NewInput(keys)
     return {
         keys = keys,
         pressed = false,
@@ -48,27 +48,6 @@ function ResetWheelInput()
     Input.wheel.down = false
 end
 
-Input.mb = {new(), new(), new()}
-Input.wheel = new()
+Input.mb = {NewInput(), NewInput(), NewInput()}
+Input.wheel = NewInput()
 
-Input.swap_mode = new({"tab"})
-Input.toggle_editor = new({"`"})
-Input.ctrl = new({"lctrl"})
-Input.save = new({"s"})
-Input.shift = new({"lshift"})
-Input.add = new({"a"})
-Input.delete = new({"delete", "x"})
-Input.deselect = new({"escape"})
-Input.undo = new({"z"})
-Input.add_script = new({"backspace"})
-Input.reset_zoom = new({"rshift"})
-
-Input.next_level = new({"pagedown"})
-Input.prev_level = new({"pageup"})
-
-Input.right = new({"right", "d"})
-Input.left = new({"left", "a"})
-
--- Input.up = new({"up", "w"})
--- Input.down = new({"down", "s"})
--- Input.jump = new({"space", "up", "w", "lshift"})

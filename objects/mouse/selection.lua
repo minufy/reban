@@ -41,7 +41,6 @@ local function get_group_names()
     for i, type in ipairs(OBJECT_TYPES) do
         table.insert(group_names, type)
     end
-    table.insert(group_names, "img")
     return group_names
 end
 
@@ -134,18 +133,10 @@ function Selection:update_selected_objects()
             local y = RoundS(object.y, grid)
             object.x = x
             object.y = y
-            if object.group_name == "img" then
-                Edit:move_img_object(x, y, object.key)
-            else
-                Edit:move_object(x, y, object.key)
-            end
+            Edit:move_object(x, y, object.key)
         end
         if Input.delete.pressed then
-            if object.group_name == "img" then
-                Edit:remove_img_object(object.key)
-            else
-                Edit:remove_object(object.key)
-            end
+            Edit:remove_object(object.key)
         end
     end
     if Input.deselect.pressed or Input.delete.pressed then

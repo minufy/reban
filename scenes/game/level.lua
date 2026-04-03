@@ -1,7 +1,6 @@
 local Level = {}
 
 local Tiles = require("objects.tiles")
-local Img = require("objects.img")
 
 TILE_TYPES = {
     "tile"
@@ -12,7 +11,8 @@ for i, type in ipairs(TILE_TYPES) do
 end
 
 OBJECT_TYPES = {
-    "player"
+    "player",
+    "img",
 }
 local object_table = {}
 for i, type in ipairs(OBJECT_TYPES) do
@@ -43,9 +43,6 @@ function Level:load_level()
         if self.level.objects == nil then
             self.level.objects = {}
         end
-        if self.level.img_objects == nil then
-            self.level.img_objects = {}
-        end
         Edit.undo = {}
         if CONSOLE then
             Edit:undo_push()
@@ -66,12 +63,13 @@ function Level:reload()
         object.key = k
         local path = "assets/levels/"..self.level_index.."/"..k..".lua"
         if love.filesystem.getInfo(path) then
-            object.data = require("assets.levels."..self.level_index.."."..k)
+            if object.set_data then
+                local data = require("assets.levels."..self.level_index.."."..k)
+                if data ~= true then
+                    object:set_data(data)
+                end
+            end
         end
-    end
-    for k, o in pairs(self.level.img_objects) do
-        local object = Game:add(Img, o.x, o.y, o.type)
-        object.key = k
     end
 end
 
