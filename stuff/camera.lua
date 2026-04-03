@@ -7,10 +7,10 @@ Camera.target_y = 0
 Camera.x = 0
 Camera.y = 0
 
-Camera.x_damp = nil
-Camera.y_damp = nil
+Camera.x_damp = 0.2
+Camera.y_damp = 0.2
 
-Camera.shake_damp = nil
+Camera.shake_damp = 0.2
 Camera.shake_x = 0
 Camera.shake_y = 0
 Camera.shake_duration = 0

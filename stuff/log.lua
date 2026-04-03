@@ -5,7 +5,7 @@ local MAX_LOGS = 100
 function Log(...)
     local text = os.date().." : "
     for i, t in ipairs({...}) do
-        text = text..tostring(t).." "
+        text = text..t.." "
     end
     if #Logs >= MAX_LOGS then
         table.remove(Logs, 1)
