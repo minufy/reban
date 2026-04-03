@@ -10,6 +10,8 @@ require("stuff.utils")
 require("stuff.log")
 require("stuff.audio")
 
+require("settings")
+
 function love.load()
     LogFont = love.graphics.newFont(20)
     

@@ -9,6 +9,7 @@ function Edit:init()
     self.mouse = Mouse()
     self.undo = {}
     self.undo_i = 1
+    self.remove_scripts = {}
 end
 
 function Edit:update(dt)
@@ -77,12 +78,21 @@ function Edit:add_img_object(x, y, type)
     Level:reload()
 end
 
+function Edit:add_remove_script(key)
+    local path = "assets/levels/"..Level.level_index.."/"..key..".lua"
+    if love.filesystem.getInfo(path) then
+        table.insert(self.remove_scripts, path)
+    end
+end
+
 function Edit:remove_object(key)
+    self:add_remove_script(key)
     Level.level.objects[key] = nil
     Level:reload()
 end
 
 function Edit:remove_img_object(key)
+    self:add_remove_script(key)
     Level.level.img_objects[key] = nil
     Level:reload()
 end
@@ -139,6 +149,16 @@ function Edit:save()
         Log("saved to "..path)
     else
         Log(err)
+    end
+    for i, script_path in ipairs(self.remove_scripts) do
+        if love.filesystem.getInfo(script_path) then
+            local success, script_err = os.remove(script_path)
+            if success then
+                Log(script_path.." deleted")
+            else
+                Log("error deleting "..script_path.." | "..script_err)
+            end
+        end
     end
 end
 
