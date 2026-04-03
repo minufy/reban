@@ -15,14 +15,12 @@ Input.prev_level = NewInput({"pageup"})
 
 Input.right = NewInput({"right", "d"})
 Input.left = NewInput({"left", "a"})
-
 -- Input.up = new({"up", "w"})
 -- Input.down = new({"down", "s"})
 -- Input.jump = new({"space", "up", "w", "lshift"})
 
 Camera.x_damp = 0.2
 Camera.y_damp = 0.2
-
 Camera.shake_damp = 0.2
 
 TILE_TYPES = {
@@ -34,3 +32,5 @@ OBJECT_TYPES = {
 IMG_TYPES = {
     "test"
 }
+
+TILE_SIZE = 16

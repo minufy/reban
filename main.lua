@@ -14,23 +14,17 @@ require("stuff.edit")
 require("stuff.level")
 require("stuff.mouse")
 require("stuff.selection")
-
 require("settings")
 
 function love.load()
     LogFont = love.graphics.newFont(20)
-    
     love.graphics.setDefaultFilter("nearest", "nearest")
-
     Font = love.graphics.newFont("assets/fonts/Galmuri9.ttf", 10)
-    TILE_SIZE = 16
 
     -- NewAudio("jump")
 
     Res:init()
-    
     SM:load("game")
-    
     UpdateTargetFPS()
 end
 
