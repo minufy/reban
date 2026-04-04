@@ -1,6 +1,6 @@
-local Tiles = Class()
+local Tiles = Object:extend()
 
-function Tiles:init(tiles)
+function Tiles:new(tiles)
     self.group_name = "tiles"
     
     self.tiles = tiles

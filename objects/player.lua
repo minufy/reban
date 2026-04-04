@@ -1,8 +1,8 @@
-local Player = Class()
+local Player = Object:extend()
 
 local img = NewImage("player")
 
-function Player:init(x, y)
+function Player:new(x, y)
     self.group_name = "player"
 
     self.x = x

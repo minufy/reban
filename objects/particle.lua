@@ -1,6 +1,6 @@
-local Particle = Class()
+local Particle = Object:extend()
 
-function Particle:init(x, y, mx, my, size, color)
+function Particle:new(x, y, mx, my, size, color)
     self.group_name = "particle"
 
     self.x = x

@@ -29,9 +29,9 @@ function Physics.col(self, group_names)
     return found_all
 end
 
-function Physics.col_group(self, group)
+function Physics.col_group(self, group_name)
     local found = {}
-    for _, other in ipairs(group) do
+    for _, other in ipairs(group_name) do
         if self ~= other and AABB(self, other) then
             table.insert(found, other)
         end

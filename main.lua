@@ -1,4 +1,4 @@
-Class = require("modules.hump.class")
+Object = require("modules.classic")
 Particle = require("objects.particle")
 
 require("stuff.physics")
