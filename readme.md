@@ -1,3 +1,6 @@
+# reban
+love2d 템플릿
+
 # credits
 - [Galmuri9](https://quiple.dev/galmuri)
 - [lume](https://github.com/rxi/lume)

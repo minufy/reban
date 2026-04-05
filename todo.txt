@@ -1,3 +1,2 @@
 ctrl c v y d x
 tile layers
-현재 들고있는 오브젝트만 선택하기
