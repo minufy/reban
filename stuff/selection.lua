@@ -19,6 +19,15 @@ local function calc_rect(sx, ex, sy, ey)
     return x, y, w, h
 end
 
+local function get_group_names()
+    local group_names = {}
+    for i, type in ipairs(OBJECT_TYPES) do
+        table.insert(group_names, type)
+    end
+    table.insert(group_names, "img")
+    return group_names
+end
+
 function Selection:init()
     self.x = 0
     self.y = 0
@@ -30,17 +39,30 @@ function Selection:init()
     self.end_x = self.x
     self.end_y = self.y
     self.selected_objects = {}
+    self.prev_col = {}
+    self.cycle_i = 1
 
     self.tile_mouse_i = 1
 end
 
-local function get_group_names()
-    local group_names = {}
-    for i, type in ipairs(OBJECT_TYPES) do
-        table.insert(group_names, type)
+function Selection:cycle_col(col)
+    if col == self.prev_col then
+        self.cycle_i = self.cycle_i+1
+    else
+        self.cycle_i = 1
     end
-    table.insert(group_names, "img")
-    return group_names
+    self.prev_col = col
+    return col[self.cycle_i]
+end
+
+function Selection.get_col(self)
+    local col
+    if Input.filter.down then
+        col = Physics.col(self, {Mouse.current_name})
+    else
+        col = Physics.col(self, get_group_names())
+    end
+    return col
 end
 
 function Selection:draw_selection()
@@ -62,9 +84,9 @@ function Selection:draw_selection()
     end
 end
 
-function Selection:update_selection()
+function Selection:multiple_selection()
     if Input.mb[1].pressed then
-        local col = Physics.col(Mouse, get_group_names())
+        local col = self.get_col(Mouse)
         if #col > 0 then
             self.selected_objects = {col[1]}
             return
@@ -79,8 +101,7 @@ function Selection:update_selection()
     self.x, self.y, self.w, self.h = calc_rect(self.start_x, self.end_x, self.start_y, self.end_y)
     
     if Input.mb[1].released then
-        local col = Physics.col(self, get_group_names())
-        self.selected_objects = col
+        self.selected_objects = self:get_col()
     end
 end
 
@@ -92,30 +113,33 @@ function Selection:draw_selected_objects()
     end
 end
 
-function Selection:update_before_selected_objects()
+function Selection:ctrl_select(col)
+    local existed = false
+    for i, object in ipairs(self.selected_objects) do
+        if object.key == col[1].key then
+            existed = true
+            table.remove(self.selected_objects, i)
+            break
+        end
+    end
+    if not existed then
+        table.insert(self.selected_objects, col[1])
+    end
+end
+
+function Selection:single_selection()
     if Input.mb[1].pressed then
-        local col = Physics.col(Mouse, get_group_names())
+        local col = self.get_col(Mouse)
         if #col <= 0 then
             self.selected_objects = {}
             return
         end
         
         if Input.ctrl.down then
-            local existed = false
-            for i, object in ipairs(self.selected_objects) do
-                if object.key == col[1].key then
-                    existed = true
-                    table.remove(self.selected_objects, i)
-                    break
-                end
-            end
-            if not existed then
-                table.insert(self.selected_objects, col[1])
-            end
+            self:ctrl_select(col)
         else
             if #self.selected_objects <= 1 then
-                self.selected_objects = {}
-                table.insert(self.selected_objects, col[1])
+                self.selected_objects = col[1]
             end
         end
     end
@@ -180,10 +204,10 @@ function Selection:update()
         self.start_y = Mouse.y
     end
     if #self.selected_objects > 0 then
-        self:update_before_selected_objects()
+        self:single_selection()
         self:update_selected_objects()
     else
-        self:update_selection()
+        self:multiple_selection()
     end
     if Input.mb[1].released then
         self.w = 0
@@ -217,7 +241,7 @@ function Selection:fill_tiles()
 end
 
 function Selection:update_tile()
-    for i=1, 2 do
+    for i = 1, 2 do
         if Input.mb[i].pressed then
             self.tile_mouse_i = i
             self.start_x = RoundS(Mouse.x, TILE_SIZE, 0)

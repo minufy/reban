@@ -19,23 +19,7 @@ function Mouse:init()
     self.current_i = 1
 end
 
-function Mouse:update(dt)
-    self.x = Res:get_x()+Camera.x
-    self.y = Res:get_y()+Camera.y
-
-    self.dx = self.dx-Res:get_x()
-    self.dy = self.dy-Res:get_y()
-    
-    self.tile_x = Round(self.x, TILE_SIZE, 0)
-    self.tile_y = Round(self.y, TILE_SIZE, 0)
-
-    if Input.swap_mode.pressed then
-        self.tile_mode = not self.tile_mode
-        Selection.selected_objects = {}
-        self.current_i = 1
-        self:set()
-    end
-    
+function Mouse:camera_control()
     if Input.ctrl.down then
         if Input.wheel.up then
             Camera:scale_zoom(1.5)
@@ -61,6 +45,26 @@ function Mouse:update(dt)
         Camera:add(self.dx, self.dy)
         Camera:snap_back()
     end
+end
+
+function Mouse:update(dt)
+    self.x = Res:get_x()+Camera.x
+    self.y = Res:get_y()+Camera.y
+
+    self.dx = self.dx-Res:get_x()
+    self.dy = self.dy-Res:get_y()
+    
+    self.tile_x = Round(self.x, TILE_SIZE, 0)
+    self.tile_y = Round(self.y, TILE_SIZE, 0)
+
+    if Input.swap_mode.pressed then
+        self.tile_mode = not self.tile_mode
+        Selection.selected_objects = {}
+        self.current_i = 1
+        self:set()
+    end
+    
+    self:camera_control()
     
     if self.tile_mode then
         if Input.ctrl.down then

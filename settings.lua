@@ -9,9 +9,9 @@ Input.deselect = NewInput({"escape"})
 Input.undo = NewInput({"z"})
 Input.add_script = NewInput({"backspace"})
 Input.reset_zoom = NewInput({"rshift"})
-
 Input.next_level = NewInput({"pagedown"})
 Input.prev_level = NewInput({"pageup"})
+Input.filter = NewInput({"lalt"})
 
 Input.right = NewInput({"right", "d"})
 Input.left = NewInput({"left", "a"})
