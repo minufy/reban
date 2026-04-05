@@ -68,7 +68,7 @@ function Selection:draw_selection()
     end
 end
 
-function Selection:multiple_selection()
+function Selection:update_selection()
     if Input.mb[1].pressed then
         local col = self.get_col(Mouse)
         if #col > 0 then
@@ -99,8 +99,8 @@ function Selection:draw_selected_objects()
     for i, object in ipairs(self.selected_objects) do
         if Input.cycle.down then
             love.graphics.setFont(Font)
-            love.graphics.setColor(1, 0, 1)
-            love.graphics.print(tostring(i), object.x+object.w, object.y)
+            love.graphics.setColor(1, 0, 1, 0.8)
+            love.graphics.print(tostring(i), object.x+object.w+2, object.y)
         else
             love.graphics.setLineWidth(2)
             love.graphics.setColor(0, 1, 1, 0.6)
@@ -135,7 +135,7 @@ function Selection:single_selection()
             self:ctrl_select(col)
         else
             if #self.selected_objects <= 1 then
-                self.selected_objects = col[1]
+                self.selected_objects = {col[1]}
             end
         end
     end
@@ -226,7 +226,7 @@ function Selection:update()
         self:single_selection()
         self:update_selected_objects()
     else
-        self:multiple_selection()
+        self:update_selection()
     end
     if Input.mb[1].released then
         self.w = 0
