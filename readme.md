@@ -2,7 +2,7 @@
 love2d 템플릿
 
 # setup
-`git submoudule update --init`
+`git submodule update --init`
 
 # credits
 - [Galmuri9](https://quiple.dev/galmuri)
