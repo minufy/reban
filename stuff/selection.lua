@@ -45,24 +45,8 @@ function Selection:init()
     self.tile_mouse_i = 1
 end
 
-function Selection:cycle_col(col)
-    if col == self.prev_col then
-        self.cycle_i = self.cycle_i+1
-    else
-        self.cycle_i = 1
-    end
-    self.prev_col = col
-    return col[self.cycle_i]
-end
-
 function Selection.get_col(self)
-    local col
-    if Input.filter.down then
-        col = Physics.col(self, {Mouse.current_name})
-    else
-        col = Physics.col(self, get_group_names())
-    end
-    return col
+    return Physics.col(self, get_group_names())
 end
 
 function Selection:draw_selection()
@@ -106,10 +90,22 @@ function Selection:multiple_selection()
 end
 
 function Selection:draw_selected_objects()
-    for i, object in ipairs(self.selected_objects) do
+    if Input.cycle.down then
+        local object = self.selected_objects[self.cycle_i]
         love.graphics.setLineWidth(2)
-        love.graphics.setColor(0, 1, 1, 0.6)
+        love.graphics.setColor(1, 0, 1, 0.6)
         love.graphics.rectangle("line", object.x, object.y, object.w, object.h)
+    end
+    for i, object in ipairs(self.selected_objects) do
+        if Input.cycle.down then
+            love.graphics.setFont(Font)
+            love.graphics.setColor(1, 0, 1)
+            love.graphics.print(tostring(i), object.x+object.w, object.y)
+        else
+            love.graphics.setLineWidth(2)
+            love.graphics.setColor(0, 1, 1, 0.6)
+            love.graphics.rectangle("line", object.x, object.y, object.w, object.h)
+        end
     end
 end
 
@@ -198,7 +194,30 @@ function Selection:get_key_str()
     return str
 end
 
+function Selection:update_cycle()
+    if Input.cycle.pressed then
+        self.cycle_i = 1
+    end
+    if Input.wheel.up then
+        self.cycle_i = self.cycle_i-1
+    elseif Input.wheel.down then
+        self.cycle_i = self.cycle_i+1
+    end
+    if self.cycle_i > #self.selected_objects then
+        self.cycle_i = #self.selected_objects
+    elseif self.cycle_i < 1 then
+        self.cycle_i = 1
+    end
+end
+
 function Selection:update()
+    if Input.cycle.released then
+        self.selected_objects = {self.selected_objects[self.cycle_i]}
+    end
+    if Input.cycle.down then
+        self:update_cycle()
+        return
+    end
     if Input.mb[1].pressed then
         self.start_x = Mouse.x
         self.start_y = Mouse.y

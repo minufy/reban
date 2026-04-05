@@ -28,13 +28,15 @@ function Mouse:camera_control()
             Camera:scale_zoom(1/1.5)
         end
     else
-        if Input.wheel.up then
-            self.current_i = self.current_i+1
-            self:set()
-        end
-        if Input.wheel.down then
-            self.current_i = self.current_i-1
-            self:set()
+        if not Input.cycle.down then
+            if Input.wheel.up then
+                self.current_i = self.current_i+1
+                self:set()
+            end
+            if Input.wheel.down then
+                self.current_i = self.current_i-1
+                self:set()
+            end
         end
     end
     if Input.reset_zoom.pressed then
