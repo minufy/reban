@@ -2,7 +2,7 @@ Game = {}
 
 function Game:add(Object, ...)
     local o = Object(...)
-    local group_name = o.group_name
+    local group_name = tostring(o)
     if self.objects[group_name] == nil then
         self.objects[group_name] = {}
     end
