@@ -3,8 +3,6 @@ local Player = Object:extend()
 local img = NewImage("player")
 
 function Player:new(x, y)
-    self.group_name = "player"
-
     self.x = x
     self.y = y
     self.w = img:getWidth()

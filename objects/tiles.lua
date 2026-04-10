@@ -1,8 +1,6 @@
 local Tiles = Object:extend()
 
 function Tiles:new(tiles)
-    self.group_name = "tiles"
-    
     self.tiles = tiles
 end
 

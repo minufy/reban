@@ -1,8 +1,6 @@
 local Particle = Object:extend()
 
 function Particle:new(x, y, mx, my, size, color)
-    self.group_name = "particle"
-
     self.x = x
     self.y = y
 

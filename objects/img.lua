@@ -1,8 +1,6 @@
 local Img = Object:extend()
 
 function Img:new(x, y, type)
-    self.group_name = "img"
-    
     self.type = type
     self.x = x
     self.y = y
