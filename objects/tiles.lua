@@ -2,6 +2,22 @@ local Tiles = Object:extend()
 
 function Tiles:new(tiles)
     self.tiles = tiles
+    self.xs = {}
+    self.ys = {}
+    self:init_tiles()
+end
+
+function Tiles:init_tiles()
+    for key, _ in pairs(self.tiles) do
+        local x, y = self:key_to_pos(key)
+        self.xs[key] = x
+        self.ys[key] = y
+    end
+end
+
+function Tiles:key_to_pos(key)
+    local x, y = string.match(key, "([^,]+),([^,]+)")
+    return tonumber(x), tonumber(y)
 end
 
 function Tiles:around(x, y)
@@ -17,8 +33,8 @@ function Tiles:around(x, y)
 end
 
 function Tiles:draw()
-    for _, tile in pairs(self.tiles) do
-        love.graphics.draw(TILE_IMGS[tile.type], tile.x*TILE_SIZE, tile.y*TILE_SIZE)
+    for key, tile in pairs(self.tiles) do
+        love.graphics.draw(TILE_IMGS[tile], self.xs[key]*TILE_SIZE, self.ys[key]*TILE_SIZE)
     end
 end
 

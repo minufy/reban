@@ -1,1 +1,1 @@
-return {["objects"]={["0x014d4d4d7cf0"]={["x"]=16,["y"]=0,["type"]="player"}},["img_objects"]={},["tiles"]={["0,0"]={["x"]=0,["y"]=0,["type"]="tile"}}}
+return {["img_objects"]={},["objects"]={["0x0286b3dbebf0"]={["type"]="player",["x"]=16,["y"]=0}},["tiles"]={["0,0"]="tile"}}
