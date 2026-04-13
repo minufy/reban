@@ -11,9 +11,12 @@ function Game:add(Object, ...)
 end
 
 function Game:init()
-    self.objects = {}
     Edit:init()
     Level:init()
+end
+
+function Game:reset()
+    self.objects = {}
 end
 
 function Game:update(dt)
