@@ -36,10 +36,9 @@ function love.update(dt)
     local now = love.timer.getTime()
     local elapsed = now-last
     if elapsed < 1/TargetFPS then
-        love.timer.sleep(1/TargetFPS-elapsed-0.001)
+        love.timer.sleep(1/TargetFPS-elapsed)
     end
     last = love.timer.getTime()
-
     dt = math.min(dt*60, 1.5)
     UpdateInputs()
     Camera:update(dt)
