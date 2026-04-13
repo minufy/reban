@@ -12,6 +12,7 @@ require("stuff.edit")
 require("stuff.level")
 require("stuff.mouse")
 require("stuff.selection")
+require("stuff.shader")
 
 require("scenes.sm")
 require("settings")
@@ -24,6 +25,7 @@ function love.load()
 
     -- NewAudio("jump")
 
+    Shader:init("assets/shader/shadow.glsl")
     Res:init()
     SM:load("game")
     UpdateTargetFPS()

@@ -40,6 +40,7 @@ function Game:draw()
     ResetColor()
     
     Camera:start()
+    -- Shader:start()
     
     for group_name, group in pairs(self.objects) do
         for _, object in ipairs(group) do
@@ -58,6 +59,8 @@ function Game:draw()
     if Edit.editing then
         Edit:draw_hud()
     end
+
+    -- Shader:stop()
 end
 
 return Game
