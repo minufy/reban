@@ -2,9 +2,9 @@ local Player = Object:extend()
 
 local img = NewImage("player")
 
-function Player:new(x, y)
-    self.x = x
-    self.y = y
+function Player:new(data)
+    self.x = data.x
+    self.y = data.y
     self.w = img:getWidth()
     self.h = img:getHeight()
 

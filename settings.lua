@@ -9,13 +9,14 @@ Camera.y_damp = 0.2
 Camera.shake_damp = 0.2
 
 TILE_TYPES = {
-    "tile"
+    "tile",
 }
 OBJECT_TYPES = {
-    "player"
+    "player",
+    "zone",
 }
 IMG_TYPES = {
-    "test"
+    "test",
 }
 
 TILE_SIZE = 16
