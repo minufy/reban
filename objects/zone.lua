@@ -6,6 +6,7 @@ function Zone:new(data)
     self.w = data.w or TILE_SIZE
     self.h = data.h or TILE_SIZE
     self.value = data.value or "test"
+    self.locked = true
 end
 
 function Zone:draw()
