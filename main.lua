@@ -13,6 +13,7 @@ require("stuff.level")
 require("stuff.mouse")
 require("stuff.selection")
 require("stuff.shader")
+require("stuff.image")
 
 require("scenes.sm")
 require("settings")
