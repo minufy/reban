@@ -5,8 +5,8 @@ NewImage("player")
 function Player:new(data)
     self.x = data.x
     self.y = data.y
-    self.w = Image.player :getWidth()
-    self.h = Image.player :getHeight()
+    self.w = Image.player:getWidth()
+    self.h = Image.player:getHeight()
 
     if not Edit.editing then
         Camera:offset(Res.w/2, Res.h/2)
@@ -29,7 +29,7 @@ function Player:update(dt)
 end
 
 function Player:draw()
-    love.graphics.draw(Image.player , self.x, self.y)
+    love.graphics.draw(Image.player, self.x, self.y)
 end
 
 return Player
