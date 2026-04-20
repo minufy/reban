@@ -37,8 +37,9 @@ local last = 0
 function love.update(dt)
     local now = love.timer.getTime()
     local elapsed = now-last
-    if elapsed < 1/TargetFPS then
-        love.timer.sleep(1/TargetFPS-elapsed)
+    local sleep_time = 1/(TargetFPS+10)-elapsed
+    if sleep_time > 0 then
+        love.timer.sleep(sleep_time)
     end
     last = love.timer.getTime()
     dt = math.min(dt*60, 1.5)
