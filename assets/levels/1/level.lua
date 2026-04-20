@@ -1,1 +1,7 @@
-return {["objects"]={["0x0286b3dbebf0"]={["x"]=16,["y"]=0,["w"]=112,["h"]=40,["type"]="player"}},["img_objects"]={},["tiles"]={["0,0"]="tile"}}
+return {
+    ["objects"] = {
+        ["0x01969cf00fc0"] = {["y"] = 0, ["type"] = "player", ["x"] = 16}
+    },
+    ["tiles"] = {["0,0"] = "tile"},
+    ["img_objects"] = {}
+}
