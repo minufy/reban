@@ -51,7 +51,7 @@ function love.draw()
     if CONSOLE then
         love.graphics.print(tostring(love.timer.getFPS()))
         local mem = collectgarbage("count")
-        local delta = mem - prev
+        local delta = mem-prev
         prev = mem
         love.graphics.print(string.format("Mem: %.1f KB | d %.1f", mem, delta), 0, LogFont:getHeight())
     end
