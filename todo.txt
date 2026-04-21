@@ -1,3 +1,2 @@
 ctrl c v y d x
 tile layers
-방향돌리기 (앞뒤양옆)
