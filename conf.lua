@@ -7,5 +7,4 @@ function love.conf(t)
     t.console = CONSOLE
     t.window.width = WINDOW_W
     t.window.height = WINDOW_H
-    t.window.vsync = 0
 end
