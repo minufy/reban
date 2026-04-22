@@ -40,7 +40,7 @@ end
 function Game:draw()
     love.graphics.setColor(rgb(49, 77, 121))
     love.graphics.rectangle("fill", 0, 0, Res.w, Res.h)
-    ResetColor()
+    Color.reset()
     
     Camera:start()
     -- Shader:start()

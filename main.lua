@@ -14,6 +14,7 @@ require("stuff.physics")
 require("stuff.res")
 require("stuff.selection")
 require("stuff.shader")
+require("stuff.timer")
 require("stuff.utils")
 
 require("scenes.sm")
@@ -39,7 +40,7 @@ function love.update(dt)
     Camera:update(dt)
     SM:update(dt)
     ResetWheelInput()
-    UpdateLog(dt)
+    Log:update(dt)
 end
 
 local prev = 0
@@ -47,7 +48,7 @@ function love.draw()
     Res:before()
     SM:draw()
     Res:after()
-    DrawLog()
+    Log:draw()
     if CONSOLE then
         love.graphics.print(tostring(love.timer.getFPS()))
         local mem = collectgarbage("count")
