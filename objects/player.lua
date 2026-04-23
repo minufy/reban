@@ -8,11 +8,22 @@ function Player:new(data)
     self.w = Image.player:getWidth()
     self.h = Image.player:getHeight()
 
+    self.mx = 0
+    self.cbs = {
+        x = function (other)
+            self:cb_x(other)
+        end
+    }
+
     if not Edit.editing then
         Camera:offset(Res.w/2, Res.h/2)
         Camera:set(self.x+self.w/2, self.y+self.h/2)
         Camera:snap_back()
     end
+end
+
+function Player:cb_x(other)
+    Physics.solve_x(self, self.mx, other)
 end
 
 function Player:update(dt)
@@ -24,8 +35,8 @@ function Player:update(dt)
     if Input.left.down then
         ix = ix-1
     end
-    local found_x = Physics.move_and_col(self, ix*2*dt, 0)
-    Physics.solve_x(self, ix, found_x[1])
+    self.mx = ix*2*dt
+    Physics.move_and_col(self, self.mx, 0, self.cbs.x)
 end
 
 function Player:draw()
