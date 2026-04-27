@@ -5,7 +5,7 @@ function Zone:new(data)
     self.y = data.y
     self.w = data.w or TILE_SIZE
     self.h = data.h or TILE_SIZE
-    self.value = data.value or "test"
+    self.value = data.value or "cam"
     self.locked = true
 end
 
