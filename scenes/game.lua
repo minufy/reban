@@ -24,14 +24,17 @@ function Game:update(dt)
 
     if not Edit.editing then
         for group_name, _ in pairs(self.objects) do
-            for i = #self.objects[group_name], 1, -1 do
+            local i = #self.objects[group_name]
+            while i > 0 do
                 local object = self.objects[group_name][i]
                 if object.update then
                     object:update(dt)
                 end
                 if object.remove then
-                    table.remove(self.objects[group_name], i)
+                    self.objects[group_name][i] = self.objects[group_name][#self.objects[group_name]]
+                    self.objects[group_name][#self.objects[group_name]] = nil
                 end
+                i = i-1
             end
         end
     end
