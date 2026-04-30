@@ -12,7 +12,7 @@ end
 
 function Game:init()
     Edit:init()
-    Level:init()
+    Level:init("1")
 end
 
 function Game:reset()

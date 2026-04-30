@@ -3,7 +3,9 @@ local Particle = Object:extend()
 function Particle:new(x, y, mx, my, size, color)
     self.x = x
     self.y = y
-
+    self.w = size
+    self.h = size
+    
     self.mx = mx*0.1
     self.my = my*0.1
     
