@@ -17,13 +17,18 @@ end
 
 function Game:reset()
     self.objects = {}
+    self.group_names = {}
 end
 
 function Game:update(dt)
     Edit:update(dt)
 
     if not Edit.editing then
+        self.group_names = {}
         for group_name, _ in pairs(self.objects) do
+            table.insert(self.group_names, group_name)
+        end
+        for _, group_name in ipairs(self.group_names) do
             local i = #self.objects[group_name]
             while i > 0 do
                 local object = self.objects[group_name][i]

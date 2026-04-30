@@ -20,6 +20,8 @@ require("stuff.utils")
 require("scenes.sm")
 require("settings")
 
+SetType(Particle, "particle")
+
 function love.load()
     LogFont = love.graphics.newFont(20)
     love.graphics.setDefaultFilter("nearest", "nearest")
