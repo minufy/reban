@@ -5,6 +5,6 @@ love2d 템플릿
 `git submodule update --init`
 
 # credits
-- [Galmuri9](https://quiple.dev/galmuri)
+- [Galmuri9](https://quiple.dev/font/galmuri)
 - [lume](https://github.com/rxi/lume)
 - [classic](https://github.com/rxi/classic)
