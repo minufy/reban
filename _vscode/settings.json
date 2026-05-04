@@ -12,5 +12,8 @@
         "rgb",
         "rgba"
     ],
+    "Lua.workspace.ignoreDir": [
+        "modules/"
+    ],
     "Lua.workspace.ignoreSubmodules": false
 }

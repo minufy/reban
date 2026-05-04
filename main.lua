@@ -1,3 +1,4 @@
+Object = require("modules.classic")
 Particle = require("objects.particle")
 
 -- stuff 

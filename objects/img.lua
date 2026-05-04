@@ -1,18 +1,15 @@
-local Img = {}
-Img.__index = Img
+local Img = Object:extend()
 
 function Img:new(data)
-    local o = setmetatable({}, self)
-    o.type = data.type
-    o.x = data.x
-    o.y = data.y
-    o.draw_x = 0
-    o.draw_y = 0
-    o.dir = data.dir or 0
-    o.r = o.dir*math.pi/2
-    o.w = Image[data.type]:getWidth()
-    o.h = Image[data.type]:getHeight()
-    return o
+    self.type = data.type
+    self.x = data.x
+    self.y = data.y
+    self.draw_x = 0
+    self.draw_y = 0
+    self.dir = data.dir or 0
+    self.r = self.dir*math.pi/2
+    self.w = Image[data.type]:getWidth()
+    self.h = Image[data.type]:getHeight()
 end
 
 function Img:draw()

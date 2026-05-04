@@ -1,13 +1,10 @@
-local Tiles = {}
-Tiles.__index = Tiles
+local Tiles = Object:extend()
 
 function Tiles:new(tiles)
-    local o = setmetatable({}, self)
-    o.tiles = tiles
-    o.xs = {}
-    o.ys = {}
-    o:init_tiles()
-    return o
+    self.tiles = tiles
+    self.xs = {}
+    self.ys = {}
+    self:init_tiles()
 end
 
 function Tiles:init_tiles()
