@@ -1,16 +1,20 @@
-local Particle = Object:extend()
+local Particle = {}
+Particle.__index = Particle
 
 function Particle:new(x, y, mx, my, size, color)
-    self.x = x
-    self.y = y
-    self.w = size
-    self.h = size
+    local o = setmetatable({}, self)
+    o.x = x
+    o.y = y
+    o.w = size
+    o.h = size
     
-    self.mx = mx*0.1
-    self.my = my*0.1
+    o.mx = mx*0.1
+    o.my = my*0.1
     
-    self.size = size
-    self.color = color or {1, 1, 1}
+    o.size = size
+    o.color = color or {1, 1, 1}
+
+    return o
 end
 
 function Particle:draw()
