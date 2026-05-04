@@ -8,12 +8,12 @@ function Img:new(data)
     self.draw_y = 0
     self.dir = data.dir or 0
     self.r = self.dir*math.pi/2
-    self.w = Image["img."..data.type]:getWidth()
-    self.h = Image["img."..data.type]:getHeight()
+    self.w = Image[data.type]:getWidth()
+    self.h = Image[data.type]:getHeight()
 end
 
 function Img:draw()
-    love.graphics.draw(Image["img."..self.type], self.x+self.draw_x, self.y+self.draw_y, self.r)
+    love.graphics.draw(Image[self.type], self.x+self.draw_x, self.y+self.draw_y, self.r)
 end
 
 return Img
