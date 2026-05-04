@@ -15,7 +15,7 @@ function Game:init()
     Level:init("1")
 end
 
-function Game:reset()
+function Game:before_reload()
     self.objects = {}
     self.group_names = {}
 end
