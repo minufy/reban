@@ -1,25 +1,29 @@
-local Player = Object:extend()
+local Player = {}
+Player.__index = Player
 
 NewImage("player")
 
 function Player:new(data)
-    self.x = data.x
-    self.y = data.y
-    self.w = Image.player:getWidth()
-    self.h = Image.player:getHeight()
+    local o = setmetatable({}, self)
+    o.x = data.x
+    o.y = data.y
+    o.w = Image.player:getWidth()
+    o.h = Image.player:getHeight()
 
-    self.mx = 0
-    self.cbs = {
+    o.mx = 0
+    o.cbs = {
         x = function (other)
-            self:cb_x(other)
+            o:cb_x(other)
         end
     }
 
     if not Edit.editing then
         Camera:offset(Res.w/2, Res.h/2)
-        Camera:set(self.x+self.w/2, self.y+self.h/2)
+        Camera:set(o.x+o.w/2, o.y+o.h/2)
         Camera:snap_back()
     end
+
+    return o
 end
 
 function Player:cb_x(other)

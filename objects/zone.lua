@@ -1,12 +1,15 @@
-local Zone = Object:extend()
+local Zone = {}
+Zone.__index = Zone
 
 function Zone:new(data)
-    self.x = data.x
-    self.y = data.y
-    self.w = data.w or TILE_SIZE
-    self.h = data.h or TILE_SIZE
-    self.value = data.value or "cam"
-    self.locked = true
+    local o = setmetatable({}, self)
+    o.x = data.x
+    o.y = data.y
+    o.w = data.w or TILE_SIZE
+    o.h = data.h or TILE_SIZE
+    o.value = data.value or "cam"
+    o.locked = true
+    return o
 end
 
 function Zone:draw()
