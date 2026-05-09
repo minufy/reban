@@ -13,7 +13,7 @@ require("stuff.mouse")
 require("stuff.physics")
 require("stuff.res")
 require("stuff.selection")
-require("stuff.shader")
+require("stuff.shadow")
 require("stuff.timer")
 require("stuff.utils")
 
@@ -30,7 +30,7 @@ function love.load()
 
     -- NewAudio("jump")
 
-    Shader:init("assets/shader/shadow.glsl")
+    Shadow:init()
     Res:init()
     SM:load("game")
     UpdateTargetFPS()
