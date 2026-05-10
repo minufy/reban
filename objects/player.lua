@@ -36,7 +36,7 @@ function Player:update(dt)
         ix = ix-1
     end
     self.mx = ix*2*dt
-    self.x = self.x+self.mx
+    self.x = self.x+self.mx*dt
     Physics.col_tiles(self, self.cbs.x)
 end
 
