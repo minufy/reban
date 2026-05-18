@@ -22,6 +22,7 @@ end
 
 function Game:update(dt)
     Edit:update(dt)
+    Camera:update(dt)
 
     if not Edit.editing then
         self.group_names = {}
