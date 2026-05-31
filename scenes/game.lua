@@ -1,14 +1,6 @@
 Game = {}
-
-function Game:add(Object, ...)
-    local o = Object(...)
-    local group_name = tostring(o)
-    if self.objects[group_name] == nil then
-        self.objects[group_name] = {}
-    end
-    table.insert(self.objects[group_name], o)
-    return o
-end
+local GameBase = require("scenes.game_base")
+GameBase(Game)
 
 function Game:init()
     Edit:init()
@@ -16,6 +8,7 @@ function Game:init()
 end
 
 function Game:before_reload()
+    self.lookup = {}
     self.objects = {}
     self.group_names = {}
 end
@@ -37,6 +30,7 @@ function Game:update(dt)
                     object:update(dt)
                 end
                 if object.remove then
+                    self.lookup[object.key] = nil
                     self.objects[group_name][i] = self.objects[group_name][#self.objects[group_name]]
                     self.objects[group_name][#self.objects[group_name]] = nil
                 end
