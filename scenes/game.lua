@@ -1,5 +1,5 @@
 Game = {}
-local GameBase = require("scenes.game_base")
+local GameBase = require("stuff.game_base")
 GameBase(Game)
 
 function Game:init()
