@@ -8,9 +8,8 @@ function Game:init()
 end
 
 function Game:before_reload()
-    self.lookup = {}
+    self:base_reload()
     self.objects = {}
-    self.group_names = {}
 end
 
 function Game:update(dt)
