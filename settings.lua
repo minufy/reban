@@ -23,10 +23,10 @@ TILE_SIZE = 16
 GRID_SIZE = TILE_SIZE/2
 
 local object_align = {
-    player = Bottom,
+    player = Align.Bottom,
 }
 OBJECT_ALIGN = setmetatable(object_align, {
     __index = function (t, k)
-        return None
+        return Align.None
     end
 })
