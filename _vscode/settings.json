@@ -15,5 +15,8 @@
     "Lua.workspace.ignoreDir": [
         "modules/"
     ],
-    "Lua.workspace.ignoreSubmodules": false
+    "Lua.workspace.ignoreSubmodules": false,
+    "Lua.diagnostics.disable": [
+        "duplicate-set-field"
+    ]
 }
