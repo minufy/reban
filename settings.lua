@@ -4,6 +4,8 @@ Input.left = NewInput({"left", "a"})
 -- Input.down = NewInput({"down", "s"})
 -- Input.jump = NewInput({"space", "up", "w", "lshift"})
 
+-- Audio:add("jump")
+
 Camera.x_damp = 0.2
 Camera.y_damp = 0.2
 Camera.shake_damp = 0.2

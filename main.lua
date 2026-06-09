@@ -28,8 +28,6 @@ function love.load()
     love.graphics.setLineStyle("rough")
     Font = love.graphics.newFont("assets/fonts/Galmuri9.ttf", 10)
 
-    -- NewAudio("jump")
-
     Shadow:init()
     Res:init()
     SM:load("game")
@@ -42,6 +40,7 @@ function love.update(dt)
     SM:update(dt)
     ResetWheelInput()
     Log:update(dt)
+    Audio:update()
 end
 
 local prev = 0
