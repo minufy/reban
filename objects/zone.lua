@@ -7,7 +7,7 @@ function Zone:new(data)
     self.h = data.h or TILE_SIZE
     self.value = data.value or "cam"
     self.locked = true
-    self.scaleable = true
+    self.scalable = true
 end
 
 function Zone:draw()
