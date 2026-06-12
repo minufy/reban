@@ -35,7 +35,7 @@ function Player:update(dt)
     if Input.left.down then
         ix = ix-1
     end
-    self.mx = ix*2*dt
+    self.mx = ix*2
     self.x = self.x+self.mx*dt
     Physics.col_tiles(self, self.cbs.x)
 end

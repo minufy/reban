@@ -36,9 +36,9 @@ end
 
 function love.update(dt)
     dt = math.min(dt*60, 1.5)
-    UpdateInputs()
+    Input:update()
     SM:update(dt)
-    ResetWheelInput()
+    Input:reset_wheel()
     Log:update(dt)
     Audio:update()
 end
@@ -56,4 +56,16 @@ function love.draw()
         prev = mem
         love.graphics.print(string.format("Mem: %.1f KB | d %.1f", mem, delta), 0, LogFont:getHeight())
     end
+end
+
+function love.wheelmoved(dx, dy)
+    Input:wheelmoved(dx, dy)
+end
+
+function love.resize(w, h)
+    Res:resize(w, h)
+end
+
+function love.displaychanged()
+    UpdateTargetFPS()
 end
