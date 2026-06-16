@@ -45,7 +45,7 @@ function Game:draw()
     Color.reset()
     
     Camera:start()
-    Shadow:start()
+    Outline:start()
     
     for group_name, group in pairs(self.objects) do
         for _, object in ipairs(group) do
@@ -65,7 +65,7 @@ function Game:draw()
         Edit:draw_hud()
     end
 
-    Shadow:stop()
+    Outline:stop()
 end
 
 return Game
