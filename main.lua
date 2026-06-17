@@ -31,7 +31,6 @@ function love.load()
     Outline:init(1)
     Res:init()
     SM:load("game")
-    UpdateTargetFPS()
 end
 
 function love.update(dt)
@@ -64,8 +63,4 @@ end
 
 function love.resize(w, h)
     Res:resize(w, h)
-end
-
-function love.displaychanged()
-    UpdateTargetFPS()
 end
