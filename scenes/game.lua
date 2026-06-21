@@ -4,7 +4,8 @@ GameBase(Game)
 
 function Game:init()
     Edit:init()
-    Level:init("1")
+    Level:init()
+    Level:load_level("1")
 end
 
 function Game:before_reload()
