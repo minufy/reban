@@ -13,7 +13,7 @@ require("stuff.mouse")
 require("stuff.physics")
 require("stuff.res")
 require("stuff.selection")
-require("stuff.shadow")
+require("stuff.shader")
 require("stuff.timer")
 require("stuff.utils")
 
@@ -28,10 +28,9 @@ function love.load()
     love.graphics.setLineStyle("rough")
     Font = love.graphics.newFont("assets/fonts/Galmuri9.ttf", 10)
 
-    Shadow:init()
+    Outline:init(1)
     Res:init()
     SM:load("game")
-    UpdateTargetFPS()
 end
 
 function love.update(dt)
@@ -64,8 +63,4 @@ end
 
 function love.resize(w, h)
     Res:resize(w, h)
-end
-
-function love.displaychanged()
-    UpdateTargetFPS()
 end
