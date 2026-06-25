@@ -1,5 +1,9 @@
 local Player = Object:extend()
 
+Player:implement(require("objects.player.movement"))
+Player:implement(require("objects.player.draw"))
+Player:implement(require("objects.player.collision"))
+
 NewImage("player")
 
 function Player:new(data)
@@ -8,40 +12,44 @@ function Player:new(data)
     self.w = Image.player:getWidth()
     self.h = Image.player:getHeight()
 
-    self.mx = 0
-    self.cbs = {
-        x = function (other)
-            self:cb_x(other)
-        end
-    }
-
-    if not Edit.editing then
-        Camera:offset(Res.w/2, Res.h/2)
-        Camera:set(self.x+self.w/2, self.y+self.h/2)
-        Camera:snap_back()
-    end
+    -- self:init_collision()
+    self:init_draw()
+    self:init_movement()
+    
+    self.trail_timer = Timer(3)
 end
 
-function Player:cb_x(other)
-    Physics.solve_x(self, self.mx, other)
+function Player:init()
+    self.cam_x = self.x+self.w/2
+    self.cam_y = self.y+self.h/2
+    self:init_collision()
+    Camera:offset(Res.w/2, Res.h/2)
+    Camera:set(self.cam_x, self.cam_y)
+    Camera:snap_back()
+    Game.trail = {}
 end
 
 function Player:update(dt)
-    Camera:set(self.x+self.w/2, self.y+self.h/2)
-    local ix = 0
-    if Input.right.down then
-        ix = ix+1
+    -- follow player
+    self.cam_x = self.x+self.w/2
+    self.cam_y = self.y+self.h/2
+    
+    self:update_collision(dt)
+    self:update_draw(dt)
+    self:update_movement(dt)
+
+    -- set camera after collision
+    Camera:set(self.cam_x, self.cam_y)
+
+    if CONSOLE then
+        if self.trail_timer:run(dt) then
+            table.insert(Game.trail, {x = self.x+self.w/2, y = self.y+self.h/2})
+        end
     end
-    if Input.left.down then
-        ix = ix-1
-    end
-    self.mx = ix*2
-    self.x = self.x+self.mx*dt
-    Physics.col_tiles(self, self.cbs.x)
 end
 
 function Player:draw()
-    love.graphics.draw(Image.player, self.x, self.y)
+    self:draw_draw()
 end
 
 return Player

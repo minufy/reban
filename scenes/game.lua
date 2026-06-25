@@ -29,7 +29,6 @@ function Game:update(dt)
                     object:update(dt)
                 end
                 if object.remove then
-                    self.lookup[object.key] = nil
                     self.objects[group_name][i] = self.objects[group_name][#self.objects[group_name]]
                     self.objects[group_name][#self.objects[group_name]] = nil
                 end
