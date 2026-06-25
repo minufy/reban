@@ -9,7 +9,6 @@ function Game:init()
 end
 
 function Game:before_reload()
-    self:base_reload()
     self.objects = {}
 end
 
