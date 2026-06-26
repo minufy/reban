@@ -26,7 +26,6 @@ function Player:init()
     Camera:offset(Res.w/2, Res.h/2)
     Camera:set(self.cam_x, self.cam_y)
     Camera:snap_back()
-    Game.trail = {}
 end
 
 function Player:update(dt)
@@ -40,12 +39,6 @@ function Player:update(dt)
 
     -- set camera after collision
     Camera:set(self.cam_x, self.cam_y)
-
-    if CONSOLE then
-        if self.trail_timer:run(dt) then
-            table.insert(Game.trail, {x = self.x+self.w/2, y = self.y+self.h/2})
-        end
-    end
 end
 
 function Player:draw()
