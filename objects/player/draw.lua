@@ -1,7 +1,6 @@
 local Draw = Object:extend()
 
 local bounce_damp = 0.2
-local air_jump_radius_damp = 0.3
 
 function Draw:init_draw()
     self.flip = 1
@@ -21,12 +20,6 @@ function Draw:update_draw(dt)
     end
     
     self.draw_bounce = self.draw_bounce-self.draw_bounce*bounce_damp*dt
-
-    local indicator_radius = 0
-    if self.air_jump or self.in_pad then
-        indicator_radius = 2
-    end
-    self.air_jump_radius = self.air_jump_radius+(indicator_radius-self.air_jump_radius)*air_jump_radius_damp*dt
 end
 
 function Draw:draw_draw()
